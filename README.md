@@ -1,41 +1,56 @@
-Astra: AI-Driven 3D Virtual Assistant
-High-Performance Native iOS + Unity 3D Integration + Node.js Backend
-Technical Showcase: 13+ Years Engineering Experience
-🚀 Overview
-Astra is a cross-platform "Super-App" prototype demonstrating the seamless integration of Real-time AI Voice APIs with an embedded Unity 3D engine. This project solves the high-latency "back-and-forth" problem common in AI assistants by using an asynchronous, event-driven architecture.
-Key Engineering Challenges Solved:
-The Unity-Native Bridge: Bi-directional communication between Swift (Native) and C# (Unity) with zero memory leaks.
-Streaming AI Pipeline: Implementing OpenAI GPT-4o streaming via Server-Sent Events (SSE) to minimize perceived latency.
-Full-Stack Scalability: A stateless Node.js middleware designed for horizontal scaling and rapid deployment.
-🏗️ System Architecture
-“I build systems, not just apps.”
-mermaid
+# Axiom: Spatial AI Math Tutor
+### Multimodal STEM Learning | SwiftUI/Flutter + Unity + Node.js + Groq (Llama 3)
+
+**Technical Case Study: 13+ Years Engineering Experience**
+
+---
+
+## 🚀 The Vision
+Axiom solves the "Abstraction Gap" in STEM education. While traditional AI tutors provide text-based solutions, Axiom acts as a **Spatial Compiler**—converting complex mathematical formulas into interactive, 3D procedural models in real-time.
+
+### The "Unified-Context" Architecture:
+* **Native Host (SwiftUI/Flutter):** High-fidelity LaTeX rendering for step-by-step text solutions and biometric user management.
+* **Embedded Engine (Unity):** Procedural generation of 3D geometry, function graphing, and physics simulations.
+* **Orchestration Layer (Node.js):** Stateless middleware that parses human intent into a dual-stream: **Human-Readable Text** + **Machine-Readable JSON Scene Graphs**.
+
+---
+
+## 🏗️ System Architecture
+*“From Formula to 3D Reality.”*
+
+```mermaid
 graph TD
-    A[Mobile App - SwiftUI] <-->|Method Channel / MessageHandler| B[Unity 3D Engine]
-    A <-->|Socket.io / REST| C[Node.js Middleware]
-    C <-->|gRPC / Streaming| D[AI APIs - OpenAI / ElevenLabs]
-    C <-->|Real-time Sync| E[Firebase Firestore]
-Use code with caution.
+    A[Student Voice/Photo] --> B[Node.js Gateway]
+    B --> C[Groq Llama 3]
+    C -->|JSON Dual-Output| B
+    B -->|LaTeX Stream| D[Native UI - Solution View]
+    B -->|Geometry Schema| E[Unity View - 3D Render]
+    D <-->|Sync Bridge| E
 
-🛠️ Tech Stack & Design Patterns
-Layer	Technology	Patterns Used
-Frontend	SwiftUI	MVVM, Combine, Dependency Injection
-3D Engine	Unity 2024.x	Observer Pattern, ScriptableObjects, Bridge Architecture
-Backend	Node.js	Controller-Service Pattern, JWT Auth, Event Emitters
-Cloud	Google Cloud / Firebase	Serverless Functions, Real-time DB
-🧩 Featured Implementation: The Native-Unity Bridge
-A common bottleneck in hybrid apps is UI thread blocking. This implementation uses a Thread-Safe Message Queue to ensure iOS frames remain at 60fps while processing 3D data and AI responses simultaneously.
-swift
-// Native iOS side: Sending AI Intent to the Unity Character
-func sendIntentToUnity(action: String) {
-    UnityFramework.getInstance().sendMessageToGO(
-        "AstraCharacter", 
-        methodName: "OnAIActionReceived", 
-        message: action
-    )
-}
-Use code with caution.
 
+🛠️ Technical Stack
+Layer	Technology	Role
+AI Logic	Groq (Llama 3)	Mathematical solver & Spatial JSON compiler
+Backend	Node.js / Express	API Gateway & Prompt Engineering
+3D Rendering	Unity 2024.x	Procedural mesh generation (Cones, Vectors, Graphs)
+Mobile Host	SwiftUI / Flutter	Camera/Voice capture & LaTeX text rendering
+🧩 Featured: The "Dual-Payload" Response
+When a student asks: "Find the volume of a sphere with radius 4," the system generates:
+Text Solution (Native): "Step 1: Use formula V = 4/3πr³..."
+Spatial Logic (Unity): {"shape": "SPHERE", "radius": 4.0, "wireframe": true}
 👨‍💻 About the Architect
 Syed Imran Ahmed | Senior Systems Architect
-With 13+ years of professional engineering, I specialize in bridging legacy native performance with modern AI and immersive 3D experiences. This repository serves as a public demonstration of the clean, maintainable code standards I bring to private enterprise projects.
+With 13+ years of professional engineering, I specialize in bridging high-performance Native Mobile with immersive 3D Engine technology. This project demonstrates my ability to solve the complex sync-challenges between UI and Game Engines.
+
+---
+
+### **3. The "Senior" Commit for the Rebrand**
+
+**Subject:** `chore(brand): rebrand to Axiom - Spatial AI Math Tutor`
+
+**Extended Description:**
+```text
+- Updated project identity to reflect focus on STEM education and 3D visualization.
+- Refactored README to highlight the "Dual-Payload" (Text + Spatial) architecture.
+- Redefined system requirements to include LaTeX rendering and Procedural Geometry.
+- Standardized directory structure for Native-Unity embedded integration.
