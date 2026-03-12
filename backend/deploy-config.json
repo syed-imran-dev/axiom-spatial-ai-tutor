@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "serviceName": "astra-ai-middleware",
+  "runtime": "node20",
+  "plan": "standard",
+  "region": "us-east-1",
+  "env_vars": [
+    {
+      "key": "NODE_ENV",
+      "value": "production"
+    },
+    {
+      "key": "OPENAI_API_KEY",
+      "value": "PLACEHOLDER_REQUIRED",
+      "description": "Required for GPT-4o Voice streaming"
+    },
+    {
+      "key": "PORT",
+      "value": "3000"
+    }
+  ],
+  "scaling": {
+    "min_instances": 1,
+    "max_instances": 5,
+    "target_cpu_utilization": 70
+  },
+  "health_check": {
+    "path": "/api/v1/health",
+    "interval": 30
+  }
+}
