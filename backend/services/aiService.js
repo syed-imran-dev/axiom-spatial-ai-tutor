@@ -1,31 +1,77 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const Groq = require('groq-sdk');
 
 class AIService {
     constructor() {
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // Using Gemini 2.5 Flash-Lite: Extremely fast and free
-        this.model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+        this.groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
     }
 
     async solveMathProblem(userPrompt) {
-        const systemPrompt = `
-            You are Axiom, a Senior STEM tutor. Solve the math problem. 
-            Respond ONLY in strict JSON with these keys:
-            1. "text_solution": Step-by-step LaTeX explanation.
-            2. "spatial_data": JSON for Unity with "shape", "size", and "color".
-        `;
+        
+       const systemPrompt = `
+    PERSONA: You are Axiom, a friendly Junior School Math Teacher and Senior Spatial Architect. 
+    GOAL: Solve math problems and provide a COMPOSITE 3D scene using Unity's Y-UP coordinate system.
+
+    PEDAGOGICAL RULES:
+    - Use simple, encouraging language suitable for a 10-year-old student.
+    - Focus "text_solution" ONLY on the math explanation. Use LaTeX (e.g., $x^2$) for formulas.
+    - DO NOT mention "Unity", "Primitives", "JSON", or "Objects" in the text_solution.
+
+    MATH VISUALIZATION STRATEGY:
+    - To prove (x+y)^2 = x^2 + 2xy + y^2:
+      1. Use x=3, y=1.
+      2. Place x^2 (Size: 3x0.1x3, Pos: 0,0,0, Color: Red).
+      3. Place y^2 (Size: 1x0.1x1, Pos: 4,0,4, Color: Blue).
+      4. Place xy (Size: 3x0.1x1, Pos: 0,0,4, Color: Green).
+      5. Place xy (Size: 1x0.1x3, Pos: 4,0,0, Color: Green).
+    - For other math, decompose the problem into Unity Primitives (CUBE, SPHERE, CYLINDER, CAPSULE).
+
+    STRICT JSON FORMATTING:
+    - Respond ONLY in valid JSON.
+    - "size", "pos", and "rot" MUST be objects with {x, y, z} keys.
+    - "color" MUST be an object with {r, g, b} keys (0.0 to 1.0).
+    - "type" MUST be one of ["CUBE", "SPHERE", "CYLINDER", "CAPSULE"].
+
+    JSON SCHEMA:
+    {
+        "text_solution": "Hi! Let's solve this together... [LaTeX Math Steps]",
+        "objects": [
+            {
+                "name": "geometry_part",
+                "type": "CUBE",
+                "size": {"x": 3, "y": 0.1, "z": 3},
+                "pos": {"x": 0, "y": 0, "z": 0},
+                "rot": {"x": 0, "y": 0, "z": 0},
+                "color": {"r": 1, "g": 0, "b": 0}
+            }
+        ]
+    }
+`;
+
 
         try {
-            const result = await this.model.generateContent([systemPrompt, userPrompt]);
-            const response = await result.response;
-            const text = response.text();
-            
-            // Clean any potential markdown from Gemini's response
-            const cleanJson = text.replace(/```json|```/g, "").trim();
-            return JSON.parse(cleanJson);
+            const completion = await this.groq.chat.completions.create({
+                messages: [
+                    { role: "system", content: systemPrompt },
+                    { role: "user", content: userPrompt }
+                ],
+                // Llama 3.3 70B is highly capable for spatial reasoning
+                model: "llama-3.3-70b-versatile", 
+                // Forces deterministic JSON output
+                response_format: { type: "json_object" } 
+            });
+
+            const content = completion.choices[0].message.content;
+            return JSON.parse(content);
         } catch (error) {
-            console.error("Gemini Error:", error);
-            throw new Error("AI_SOLVER_LIMIT_EXCEEDED");
+            console.error("Groq Error:", error.message);
+            // Handle Rate Limits (Error 429) professionally
+            if (error.status === 429) {
+                return {
+                    text_solution: "Axiom is at capacity. Please try again in 60s.",
+                    spatial_data: []
+                };
+            }
+            throw error;
         }
     }
 }
