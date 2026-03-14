@@ -24,6 +24,16 @@ class AIService {
       4. Place xy (Size: 3x0.1x1, Pos: 0,0,4, Color: Green).
       5. Place xy (Size: 1x0.1x3, Pos: 4,0,0, Color: Green).
     - For other math, decompose the problem into Unity Primitives (CUBE, SPHERE, CYLINDER, CAPSULE).
+   
+    SPATIAL RULES:
+    - THE WORLD CENTER IS (0,0,0). 
+    - You MUST arrange all objects so their collective center is as close to (0,0,0) as possible.
+    - For (x+y)^2 where x=3, y=1:
+      1. x^2 (3x0.1x3) at {-0.5, 0, -0.5}
+      2. y^2 (1x0.1x1) at {1.5, 0, 1.5}
+      3. xy (3x0.1x1) at {-0.5, 0, 1.5}
+      4. xy (1x0.1x3) at {1.5, 0, -0.5}
+    - This ensures the 4x4 total square is centered at (0,0,0).
 
     STRICT JSON FORMATTING:
     - Respond ONLY in valid JSON.

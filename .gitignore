@@ -1,3 +1,59 @@
-node_modules
+# --- AXIOM MASTER GITIGNORE (2026 Senior Edition) ---
+
+# 1. SECURITY & KEYS (Critical)
 .env
+*.env
+auth_key.json
+google-services.json
+GoogleService-Info.plist
+secrets.dart
+*.keystore
+*.jks
+
+# 2. UNITY (The Eyes) - Targeting your specific path
+# We ignore the massive auto-generated Library and Temp folders
+mobile-flutter/unity/axiom_unity_project/[Ll]ibrary/
+mobile-flutter/unity/axiom_unity_project/[Tt]emp/
+mobile-flutter/unity/axiom_unity_project/[Oo]bj/
+mobile-flutter/unity/axiom_unity_project/[Bb]uild/
+mobile-flutter/unity/axiom_unity_project/[Bb]uilds/
+mobile-flutter/unity/axiom_unity_project/[Ll]ogs/
+mobile-flutter/unity/axiom_unity_project/[Uu]ser[Ss]ettings/
+
+# Ignore Unity Visual Studio/Rider junk
+mobile-flutter/unity/axiom_unity_project/*.csproj
+mobile-flutter/unity/axiom_unity_project/*.sln
+mobile-flutter/unity/axiom_unity_project/*.suo
+mobile-flutter/unity/axiom_unity_project/*.user
+mobile-flutter/unity/axiom_unity_project/*.userprefs
+
+# 3. FLUTTER (The Body)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.packages
+build/
+# Android/iOS specific Flutter noise
+mobile-flutter/android/.gradle/
+mobile-flutter/android/local.properties
+mobile-flutter/android/unityLibrary/
+mobile-flutter/ios/Flutter/Generated.xcconfig
+mobile-flutter/ios/Flutter/flutter_export_environment.sh
+
+# 4. NODE.JS (The Brain)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+package-lock.json
+
+# 5. OS & IDE JUNK
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.bak
+*.tmp

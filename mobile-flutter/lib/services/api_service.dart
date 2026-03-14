@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class AxiomApiService {
   // 1. REPLACE THIS with your actual IDX Forwarded URL (ending in /api/v1)
   final String baseUrl =
-      "https://3000-firebase-axiom-project-1773333210161.cluster-htdgsbmflbdmov5xrjithceibm.cloudworkstations.dev/api/v1";
+      "http://192.168.1.3:3000/api/v1";
 
   Future<Map<String, dynamic>> solveMath(String problem) async {
     try {
